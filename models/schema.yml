@@ -16,6 +16,10 @@ models:
         tests:
           - unique
           - not_null
+      - name: data_notificacao
+        description: "Data da notificação"
+        tests:
+          - not_null
 
   - name: dim_localidade
     description: "Dimensão geográfica com estados e municípios"
@@ -24,6 +28,16 @@ models:
         description: "Chave primária da dimensão localidade"
         tests:
           - unique
+          - not_null
+      - name: estado
+        description: "Estado brasileiro"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO']
+      - name: municipio
+        description: "Município brasileiro"
+        tests:
           - not_null
 
   - name: fact_ocupacao_leitos
@@ -34,3 +48,81 @@ models:
         tests:
           - unique
           - not_null
+
+      - name: id_tempo
+        description: "Chave estrangeira para a dimensão tempo"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_tempo')
+              field: id_tempo
+
+      - name: id_localidade
+        description: "Chave estrangeira para a dimensão localidade"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_localidade')
+              field: id_localidade
+
+      - name: id_unidade_saude
+        description: "Chave estrangeira para a dimensão unidade de saúde"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_unidade_saude')
+              field: id_unidade_saude
+
+      - name: id_ocupacao_tipo
+        description: "Chave estrangeira para a dimensão tipo de ocupação"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_ocupacao_tipo')
+              field: id_ocupacao_tipo
+
+      - name: data_notificacao
+        description: "Data da notificação do registro"
+        tests:
+          - not_null
+
+      - name: ocupacao_leitos
+        description: "Número de leitos ocupados"
+        tests:
+          - not_null
+
+      - name: saida_obitos
+        description: "Quantidade de óbitos no período"
+        tests:
+          - not_null
+
+      - name: saida_altas
+        description: "Quantidade de altas no período"
+        tests:
+          - not_null
+
+      - name: updated_at
+        description: "Timestamp de atualização do registro"
+        tests:
+          - not_null
+
+  - name: dim_ocupacao_tipo
+    description: "Dimensão com tipos de ocupação e tipos de leito"
+    columns:
+      - name: id_ocupacao_tipo
+        description: "Chave primária da dimensão tipo de ocupação"
+        tests:
+          - unique
+          - not_null
+      - name: tipo_ocupacao
+        description: "Tipo de ocupação (COVID, SUSPEITO, etc)"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['SUSPEITO', 'CONFIRMADO', 'COVID', 'HOSPITALAR']
+      - name: tipo_leito
+        description: "Tipo de leito (CLI ou UTI)"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['CLI', 'UTI']
