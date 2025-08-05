@@ -1,4 +1,4 @@
-# Estrutura do Esquema Snowflake para Análise de Ocupação de Leitos
+# Snowflake para Análise de Ocupação de Leitos - COVID 19
 
 ## Visão Geral
 
