@@ -20,10 +20,7 @@ SELECT
  TRIM(municipio_notificacao) AS municipio_notificacao,
  TRIM(estado) AS estado,
  TRIM(municipio) AS municipio,
- excluido,
- validado,
  created_at,
- updated_at,
- 2021 AS ano_dados
+ updated_at
 FROM {{ source('covid_2021', 'stg_leito_ocupacao_2021') }}
 WHERE excluido = FALSE
