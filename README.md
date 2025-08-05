@@ -247,8 +247,70 @@ No dbt Cloud, foi criado um job chamado `Atualização COVID (Mensal)`, configur
 
 **Pipeline:**
 1. A task `task_merge_leitos_covid_2021` roda e atualiza os dados no schema `BRONZE`.
+   ```
+   CREATE OR REPLACE TASK covid_2021_task_merge_ingest
+   WAREHOUSE = transforming
+   SCHEDULE = 'USING CRON 0 3 1 * * UTC'  -- Rodar dia 1 de cada mês às 03h UTC
+   AS
+   MERGE INTO COVID_2021.BRONZE.STG_LEITO_OCUPACAO_2021 AS target
+   USING (
+   SELECT
+    $1 AS UNNAMED_0,
+    $2 AS _ID,
+    $3 AS DATA_NOTIFICACAO,
+    $4 AS CNES,
+    $5 AS OCUPACAO_SUSPEITO_CLI,
+    $6 AS OCUPACAO_SUSPEITO_UTI,
+    $7 AS OCUPACAO_CONFIRMADO_CLI,
+    $8 AS OCUPACAO_CONFIRMADO_UTI,
+    $9 AS OCUPACAO_COVID_UTI,
+    $10 AS OCUPACAO_COVID_CLI,
+    $11 AS OCUPACAO_HOSPITALAR_UTI,
+    $12 AS OCUPACAO_HOSPITALAR_CLI,
+    $13 AS SAIDA_SUSPEITA_OBITOS,
+    $14 AS SAIDA_SUSPEITA_ALTAS,
+    $15 AS SAIDA_CONFIRMADA_OBITOS,
+    $16 AS SAIDA_CONFIRMADA_ALTAS,
+    $17 AS ORIGEM,
+    $18 AS P_USUARIO,
+    $19 AS ESTADO_NOTIFICACAO,
+    $20 AS MUNICIPIO_NOTIFICACAO,
+    $21 AS ESTADO,
+    $22 AS MUNICIPIO,
+    $23 AS EXCLUIDO,
+    $24 AS VALIDADO,
+    $25 AS CREATED_AT,
+    $26 AS UPDATED_AT
+   FROM @COVID_2021.BRONZE.LEITO_OCUPACAO_2021 (FILE_FORMAT => covid_csv_format)
+   ) AS source
+   ON target._ID = source._ID
+   WHEN NOT MATCHED THEN
+   INSERT (
+    UNNAMED_0, _ID, DATA_NOTIFICACAO, CNES,
+    OCUPACAO_SUSPEITO_CLI, OCUPACAO_SUSPEITO_UTI,
+    OCUPACAO_CONFIRMADO_CLI, OCUPACAO_CONFIRMADO_UTI,
+    OCUPACAO_COVID_UTI, OCUPACAO_COVID_CLI,
+    OCUPACAO_HOSPITALAR_UTI, OCUPACAO_HOSPITALAR_CLI,
+    SAIDA_SUSPEITA_OBITOS, SAIDA_SUSPEITA_ALTAS,
+    SAIDA_CONFIRMADA_OBITOS, SAIDA_CONFIRMADA_ALTAS,
+    ORIGEM, P_USUARIO, ESTADO_NOTIFICACAO, MUNICIPIO_NOTIFICACAO,
+    ESTADO, MUNICIPIO, EXCLUIDO, VALIDADO, CREATED_AT, UPDATED_AT
+   )
+   VALUES (
+    source.UNNAMED_0, source._ID, source.DATA_NOTIFICACAO, source.CNES,
+    source.OCUPACAO_SUSPEITO_CLI, source.OCUPACAO_SUSPEITO_UTI,
+    source.OCUPACAO_CONFIRMADO_CLI, source.OCUPACAO_CONFIRMADO_UTI,
+    source.OCUPACAO_COVID_UTI, source.OCUPACAO_COVID_CLI,
+    source.OCUPACAO_HOSPITALAR_UTI, source.OCUPACAO_HOSPITALAR_CLI,
+    source.SAIDA_SUSPEITA_OBITOS, source.SAIDA_SUSPEITA_ALTAS,
+    source.SAIDA_CONFIRMADA_OBITOS, source.SAIDA_CONFIRMADA_ALTAS,
+    source.ORIGEM, source.P_USUARIO, source.ESTADO_NOTIFICACAO, source.MUNICIPIO_NOTIFICACAO,
+    source.ESTADO, source.MUNICIPIO, source.EXCLUIDO, source.VALIDADO, source.CREATED_AT, source.UPDATED_AT
+   );
+   ```
+2. Executar a task: RESUME
 
-2. O job do dbt é acionado em seguida e atualiza os modelos nas camadas `GOLD`, `DIMENSIONS` e `FACTS`.
+3. Após criação da TASK no SNOWFLAKE criar o JOB no dbt com schedule definido diariamente. Assim o job do dbt é acionado em seguida e atualiza os modelos nas camadas `GOLD`, `DIMENSIONS` e `FACTS`.
 
 **Benefícios:**
 - Garante que os modelos do dbt sejam atualizados somente após a ingestão de novos dados.
