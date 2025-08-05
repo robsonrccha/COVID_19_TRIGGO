@@ -1,5 +1,5 @@
 WITH staging_data AS (
- SELECT * FROM {{ ref('stg_leito_ocupacao_2021') }}
+ SELECT * FROM {{ ref('stg_leito_ocupacao_unified') }}
  {% if is_incremental() %}
  WHERE updated_at > (SELECT MAX(updated_at) FROM {{ this }})
  {% endif %}

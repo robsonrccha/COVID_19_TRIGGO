@@ -5,7 +5,9 @@ sources:
     database: COVID_2021
     schema: BRONZE
     tables:
+      - name: stg_leito_ocupacao_2020
       - name: stg_leito_ocupacao_2021
+      - name: stg_leito_ocupacao_2022
 
 models:
   - name: dim_tempo

@@ -24,5 +24,5 @@ SELECT
  validado,
  created_at,
  updated_at
-FROM {{ source('covid_2021', 'stg_leito_ocupacao_2021') }}
+FROM {{ source('covid_2021', 'stg_leito_ocupacao_2020') }}
 WHERE excluido = FALSE

@@ -19,19 +19,15 @@ clean-targets:
 models:
   covid_2021:
     +materialized: view
-    +schema: gold
 
     dimensions:
       +materialized: table
-      +schema: dimensions
 
     facts:
       +materialized: incremental
-      +schema: facts
 
     staging:
       +materialized: view
-      +schema: bronze
 
 on-run-start:
   - "{{ log('Iniciando execução do dbt em ' ~ run_started_at, info=true) }}"
