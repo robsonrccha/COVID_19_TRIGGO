@@ -23,6 +23,7 @@ SELECT
  excluido,
  validado,
  created_at,
- updated_at
-FROM {{ source('covid_2021', 'stg_leito_ocupacao_2022') }}
+ updated_at,
+ 2022 AS ano_dados
+FROM {{ source('bronze_source', 'RAW_LEITO_OCUPACAO_2022') }}
 WHERE excluido = FALSE

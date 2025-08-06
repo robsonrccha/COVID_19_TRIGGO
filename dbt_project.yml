@@ -1,4 +1,4 @@
-name: 'covid_2021'
+name: 'COVID_19'
 version: '1.0.0'
 config-version: 2
 
@@ -17,20 +17,19 @@ clean-targets:
   - "dbt_packages"
 
 models:
-  covid_2021:
-    +materialized: view
+  COVID_19:
+    staging:
+      +materialized: view
+      +schema: bronze
+
+    intermediate:
+      +materialized: table
+      +schema: silver
 
     dimensions:
       +materialized: table
+      +schema: gold
 
     facts:
       +materialized: incremental
-
-    staging:
-      +materialized: view
-
-on-run-start:
-  - "{{ log('Iniciando execução do dbt em ' ~ run_started_at, info=true) }}"
-
-on-run-end:
-  - "{{ log('Execução do dbt finalizada em ' ~ run_started_at, info=true) }}"
+      +schema: gold
