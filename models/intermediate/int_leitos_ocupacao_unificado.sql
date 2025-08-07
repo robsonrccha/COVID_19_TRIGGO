@@ -1,10 +1,11 @@
 -- models/intermediate/int_leitos_ocupacao_unificado.sql
 
--- Este modelo serve como ponte, enriquecendo os dados de staging com
--- as chaves das dimensões antes de carregar a tabela de fatos.
-
 WITH staging_data AS (
-    SELECT * FROM {{ ref('stg_leito_ocupacao_consolidado') }}
+    SELECT * 
+    FROM {{ ref('stg_leito_ocupacao_consolidado') }}
+    WHERE 
+        COALESCE(saida_confirmada_obitos, 0) >= 0
+        AND COALESCE(saida_confirmada_altas, 0) >= 0
 ),
 
 dim_localidade AS (
@@ -12,13 +13,11 @@ dim_localidade AS (
 )
 
 SELECT
-    stg.*,  -- Seleciona todas as colunas originais do staging
-    loc.id_localidade -- Adiciona a chave da dimensão de localidade
+    stg.*,  
+    loc.id_localidade
 
 FROM staging_data stg
 
--- Faz o JOIN com a dimensão de localidade usando os nomes de texto (como definido anteriormente)
--- para encontrar o ID correto.
 LEFT JOIN dim_localidade loc ON
     UPPER(COALESCE(stg.municipio_notificacao, stg.municipio, 'Desconhecido')) = UPPER(loc.municipio)
     AND UPPER(COALESCE(stg.estado_notificacao, stg.estado, 'Desconhecido')) = UPPER(loc.estado)

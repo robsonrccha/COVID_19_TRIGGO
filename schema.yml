@@ -20,6 +20,11 @@ models:
         tests:
           - unique
           - not_null
+      - name: data
+        description: "Data completa"
+        tests:
+          - unique
+          - not_null
 
   - name: dim_localidade
     description: "Dimensão geográfica com estados e municípios"
@@ -37,4 +42,42 @@ models:
         description: "Chave primária da tabela de fatos"
         tests:
           - unique
+          - not_null
+
+      - name: id_tempo
+        description: "Chave estrangeira para a dimensão tempo"
+        tests:
+          - relationships:
+              to: ref('dim_tempo')
+              field: id_tempo
+
+      - name: id_localidade
+        description: "Chave estrangeira para a dimensão localidade"
+        tests:
+          - relationships:
+              to: ref('dim_localidade')
+              field: id_localidade
+
+      - name: id_cnes
+        description: "Chave estrangeira para a dimensão unidade de saúde"
+        tests:
+          - relationships:
+              to: ref('dim_unidade_saud')
+              field: id_unidade_saude
+
+      - name: id_ocupacao_tipo
+        description: "Chave estrangeira para a dimensão de tipo de ocupação"
+        tests:
+          - relationships:
+              to: ref('dim_ocupacao_tipo')
+              field: id_ocupacao_tipo
+
+      - name: quantidade_leitos_ocupados
+        description: "Número de leitos ocupados no registro"
+        tests:
+          - not_null
+
+      - name: updated_at
+        description: "Data da última atualização do registro"
+        tests:
           - not_null
