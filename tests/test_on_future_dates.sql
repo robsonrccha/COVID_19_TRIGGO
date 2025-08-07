@@ -1,3 +1,4 @@
+-- tests/test_no_future_dates.sql
 SELECT *
 FROM {{ ref('fact_ocupacao_leitos') }} f
 JOIN {{ ref('dim_tempo') }} t ON f.id_tempo = t.id_tempo
