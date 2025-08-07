@@ -1,13 +1,9 @@
--- models/dimensions/dim_cnes.sql (VERSÃO CORRIGIDA)
-
 -- CTE para ler os dados da tabela de consulta de estabelecimentos
 WITH estabelecimentos_cnes AS (
     SELECT
-        -- Atenção: verifique se os nomes das colunas aqui são os corretos da sua tabela
         CAST(CO_CNES AS STRING) AS id_cnes,
         NO_FANTASIA AS nm_estabelecimento
     FROM
-        -- AQUI ESTÁ A CORREÇÃO: Apontando para a tabela correta de estabelecimentos
         {{ source('bronze_source', 'RAW_ESTABELECIMENTOS_CNES') }}
 ),
 

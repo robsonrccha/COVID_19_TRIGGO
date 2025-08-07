@@ -6,6 +6,6 @@ WITH unidades_distintas AS (
 )
 SELECT
  cnes AS id_unidade_saude,
- cnes AS nome_unidade -- Pode ser enriquecido posteriormente com lookup de nomes
+ cnes AS nome_unidade
 FROM unidades_distintas
 ORDER BY cnes
