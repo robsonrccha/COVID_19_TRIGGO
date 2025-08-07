@@ -1,5 +1,3 @@
--- models/intermediate/int_leitos_ocupacao_unificado.sql
-
 WITH staging_data AS (
     SELECT * 
     FROM {{ ref('stg_leito_ocupacao_consolidado') }}

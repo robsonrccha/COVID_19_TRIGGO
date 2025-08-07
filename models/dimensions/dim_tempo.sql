@@ -14,6 +14,5 @@ SELECT
  DAYNAME(data) AS nome_dia_da_semana,
  EXTRACT(QUARTER FROM data) AS trimestre,
  EXTRACT(WEEK FROM data) AS semana_do_ano,
- FALSE AS feriado -- Pode ser populado posteriormente com lógica de feriados
 FROM date_spine
 ORDER BY data
