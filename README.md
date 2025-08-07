@@ -300,7 +300,7 @@ ORDER BY t.ano, t.mes;
 ---
 
 ## Documentação dbt
-[Visualizar documentação interativa](https://pc263.us1.dbt.com/accounts/70471823483155/develop/70471824038343/docs/index.html#!/overview)
+[Visualizar documentação interativa](https://pc263.us1.dbt.com/accounts/70471823483155/develop/70471824047047/docs/index.html#!/overview)
 
 
 ---
