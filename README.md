@@ -10,8 +10,11 @@ A arquitetura do projeto adota um modelo de **Data Warehouse Moderno**, com cama
 
 ## Dados Utilizados
 
-Foram utilizados arquivos CSV com registros de ocupação hospitalar para os anos de **2020**, **2021** e **2022**, além de arquivos auxiliares como:
+Foram utilizados arquivos CSV com registros de ocupação hospitalar para os anos de **2020**, **2021** e **2022**, além de arquivos auxiliares:
 
+- `Registro de Ocupação Hospitalar COVID-19 - 2020`
+- `Registro de Ocupação Hospitalar COVID-19 - 2021`
+- `Registro de Ocupação Hospitalar COVID-19 - 2022`
 - `cnes_estabelecimentos.csv`
 - `municipios.csv`
 
@@ -222,8 +225,6 @@ Esse Job está programado para rodar **no dia 2º de cada mês às 03:00 UTC**, 
 ---
 
 
----
-
 ### 📅 Detalhes do Job no dbt Cloud
 
 | Parâmetro              | Valor                                  |
@@ -277,7 +278,13 @@ ORDER BY t.ano, t.mes;
 - Relacionar o aumento da ocupação hospitalar com os números de **óbitos** e **altas hospitalares**.
 - Apoiar decisões de **alocação de recursos hospitalares**, **abertura de novos leitos** e **avaliação da eficácia de políticas públicas e medidas sanitárias**.
 
----
+### 💡 Outros Insights com visualização para o Power BI:
+- A quantidade de obitos nos tres nos três anos por estado
+- A quantidade de leitos ocupados ao longo dos meses por COVID-19. Onde o mês de junho de 2021 teve o maior registro de ocupação.
+
+> segue as imagens do relátorio: [InsightsPowerBI.pdf](https://github.com/user-attachments/files/21690395/Relatorio_Unico.pdf)
+
+
 
 
 ## 🚀 Inovações Implementadas
@@ -300,7 +307,7 @@ ORDER BY t.ano, t.mes;
 ---
 
 ## Documentação dbt
-[Visualizar documentação interativa](https://pc263.us1.dbt.com/accounts/70471823483155/develop/70471824038343/docs/index.html#!/overview)
+[Visualizar documentação interativa](https://pc263.us1.dbt.com/accounts/70471823483155/develop/70471824053191/docs/index.html#!/overview)
 
 
 ---
