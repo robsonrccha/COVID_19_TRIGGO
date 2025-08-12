@@ -8,9 +8,11 @@ A arquitetura do projeto adota um modelo de **Data Warehouse Moderno**, com cama
 
 ---
 
+# COMO EXECUTAR O PROJETO
+
 ## Dados Utilizados
 
-Foram utilizados arquivos CSV com registros de ocupação hospitalar para os anos de **2020**, **2021** e **2022**, além de arquivos auxiliares:
+Foram utilizados arquivos CSV obtidos pelo DataSUS com registros de ocupação hospitalar para os anos de **2020**, **2021** e **2022**, além de arquivos auxiliares:
 
 - `Registro de Ocupação Hospitalar COVID-19 - 2020`
 - `Registro de Ocupação Hospitalar COVID-19 - 2021`
@@ -194,7 +196,7 @@ Contém as tabelas modeladas:
 - **INT_LEITOS_OCUPACAO_UNIFICADO**: Consolida os dados de 2020 a 2022 com padronização de campos e chaves de junção.
 
 
-## Execução
+## Execução dbt
 
 ### Pré-requisitos
 - Snowflake account com warehouse e permissão de criação de objetos
