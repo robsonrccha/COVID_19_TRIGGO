@@ -307,7 +307,7 @@ ORDER BY t.ano, t.mes;
 ---
 
 ## Documentação dbt
-[Visualizar documentação interativa](https://pc263.us1.dbt.com/accounts/70471823483155/develop/70471824053191/docs/index.html#!/overview)
+[Visualizar Documentação](https://robsonrccha.github.io/COVID_19_TRIGGO/#!/overview)
 
 
 ---
