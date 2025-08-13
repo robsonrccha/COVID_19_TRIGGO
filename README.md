@@ -369,7 +369,7 @@ ORDER BY t.ano, t.mes;
 - Apoiar decisões de **alocação de recursos hospitalares**, **abertura de novos leitos** e **avaliação da eficácia de políticas públicas e medidas sanitárias**.
 
 ### 💡 Outros Insights com visualização para o Power BI:
-- A quantidade de obitos nos tres nos três anos por estado
+- A quantidade de obitos nos tres anos por estado
 - A quantidade de leitos ocupados ao longo dos meses por COVID-19. Onde o mês de junho de 2021 teve o maior registro de ocupação.
 
 > segue as imagens do relátorio: [InsightsPowerBI.pdf](https://github.com/user-attachments/files/21690395/Relatorio_Unico.pdf)
